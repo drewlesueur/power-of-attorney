@@ -4,32 +4,31 @@ drews = require "drews-mixins"
 fs = require "fs"
 exec = require("child_process").exec
 
+activateABC = (cb) ->
+  exec "cli-tools\\app-activate.exe ABC.EXE", (err, stdout, stderr) ->
+    cb err
 
-wscriptMaker = (call) ->
-  (key, cb=->) ->
-    fileContents = """
-      voice = WScript.CreateObject("SAPI.SpVoice");
-      voice.Speak("#{key}");
-      WshShell = WScript.CreateObject("WScript.Shell")
-      WshShell.#{call}("#{key}")
-    """  
-    fileName = "junk/#{drews.time()}#{drews.rnd(0,100)}.js" 
-    fs.writeFile fileName, fileContents, (err) ->
-      exec "wscript #{fileName}", (err, stdout, stderr) ->
-        fs.unlink fileName, (err) ->
-          console.log stdout
-          console.log err
-          console.log stderr
-          cb err
-sendKeys = wscriptMaker "SendKeys"
-appActivate = wscriptMaker "AppActivate"
-run = wscriptMaker "Run"
+abcAltMaker = (combo) ->
+  (cb) ->
+    exec "java Keys #{combo}", (err, stdout, stderror) ->
+      cb err, "yay"
+borrowerInfo = abcAltMaker "alt_f3"
+coBorrowerInfo = abcAltMaker "alt_f3 f2"
+carInfo = abcAltMaker "alt_f4"
+tradeInInfo = abcAltMaker "alt_f5"
 
+pause = (mili) ->
+  (cb) -> drews.wait mili, () -> cb null, "paused"
+nimble.series [
+  activateABC
+  borrowerInfo
+  coBorrowerInfo
+  carInfo
+  tradeInInfo
+], (err, all) ->
+  console.log "err is #{err}."
+  console.log all
 
-run "calc"
-appActivate "Gmail"
-sendKeys("12")
-sendKeys "%{PRTSC}"
 
 
 

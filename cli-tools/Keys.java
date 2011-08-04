@@ -109,21 +109,21 @@ class Keys {
       } else if (arg.equals("alt_f8")) {
         altF8();
       } else if (arg.equals("f1")) {
-        altF1();
+        F1();
       } else if (arg.equals("f2")) {
-        altF2();
+        F2();
       } else if (arg.equals("f3")) {
-        altF3();
+        F3();
       } else if (arg.equals("f4")) {
-        altF4();
+        F4();
       } else if (arg.equals("f5")) {
-        altF5();
+        F5();
       } else if (arg.equals("f6")) {
-        altF6();
+        F6();
       } else if (arg.equals("f7")) {
-        altF7();
+        F7();
       } else if (arg.equals("f8")) {
-        altF8();
+        F8();
       } else {
         altPrintScreen();
       }
