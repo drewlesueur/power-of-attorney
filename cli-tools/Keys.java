@@ -16,6 +16,9 @@ class Keys {
     public void altPrintScreen() {
       keyCombo(KeyEvent.VK_ALT, KeyEvent.VK_PRINTSCREEN);
     }
+    public void altTab() {
+      keyCombo(KeyEvent.VK_ALT, KeyEvent.VK_TAB);
+    }
     public void altF1() {
       keyCombo(KeyEvent.VK_ALT, KeyEvent.VK_F1);
     }
@@ -81,13 +84,66 @@ class Keys {
       robot.keyRelease(key);
     }
 
+    // not sure how to do this with reflection and a hash
+    // i wish this was js
+    public void runCommand(String arg) {
+      System.out.println(arg);
+      if (arg.equals("alt_printscreen")) {
+        altPrintScreen();
+      } else if (arg.equals("alt_tab")) {
+        altTab();
+      } else if (arg.equals("alt_f1")) {
+        altF1();
+      } else if (arg.equals("alt_f2")) {
+        altF2();
+      } else if (arg.equals("alt_f3")) {
+        altF3();
+      } else if (arg.equals("alt_f4")) {
+        altF4();
+      } else if (arg.equals("alt_f5")) {
+        altF5();
+      } else if (arg.equals("alt_f6")) {
+        altF6();
+      } else if (arg.equals("alt_f7")) {
+        altF7();
+      } else if (arg.equals("alt_f8")) {
+        altF8();
+      } else if (arg.equals("f1")) {
+        altF1();
+      } else if (arg.equals("f2")) {
+        altF2();
+      } else if (arg.equals("f3")) {
+        altF3();
+      } else if (arg.equals("f4")) {
+        altF4();
+      } else if (arg.equals("f5")) {
+        altF5();
+      } else if (arg.equals("f6")) {
+        altF6();
+      } else if (arg.equals("f7")) {
+        altF7();
+      } else if (arg.equals("f8")) {
+        altF8();
+      } else {
+        altPrintScreen();
+      }
+    }
+    public void runCommands(String[] args) {
+       int i;
+       String arg;
+       for (i=0; i<args.length; i++) {
+         arg = args[i];
+         runCommand(arg);
+         robot.delay(delay);
+       }
+    }
+
 
     public static void main(String[] args) {
       try {
         System.out.println("Keys!"); // Display the string.
         Keys keys = new Keys();
-        keys.altPrintScreen();
-        keys.simplePress(KeyEvent.VK_PRINTSCREEN);
+        keys.runCommands(args);
       } catch (Exception e){
         e.printStackTrace();
       }
