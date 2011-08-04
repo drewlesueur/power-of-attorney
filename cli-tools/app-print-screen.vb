@@ -9,7 +9,9 @@ Public Module modmain
      consoleApp = New ConsoleApplicationBase()
      Console.WriteLine ("App Print Screen By Drew LeSueur")
      Dim app as String
+     Dim dest as String
      app = consoleApp.CommandLineArgs(0)
+     dest = consoleApp.CommandLineArgs(1)
      Console.WriteLine ("Going to try to open '" & app &"'")
      AppActivate(app)
      'System.Windows.Forms.SendKeys.Send("%{PRTSC}")
@@ -18,7 +20,8 @@ Public Module modmain
      Dim image As System.Drawing.Image = Nothing
      If Clipboard.ContainsImage() Then
        image = Clipboard.GetImage()
-       image.Save("c:\app-print-screen.png")
+       Console.WriteLine ("Going to save to '" & dest &"'")
+       image.Save(dest)
      End If
    End Sub
 End Module
