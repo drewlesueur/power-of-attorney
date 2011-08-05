@@ -1,5 +1,7 @@
 node.exe
 .*.swp
+.*.sw*
 *~
 junk
 *.png
+

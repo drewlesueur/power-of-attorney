@@ -5,7 +5,8 @@ drews = require "drews-mixins"
 fs = require "fs"
 exec = require("child_process").exec
 
-{abcName, titleBarHeight, outputDir} = config
+{abcName, titleBarHeight, outputDir, croppings} = config
+
 activateABC = (cb) ->
   exec "cli-tools\\app-activate.exe #{abcName}", (err, stdout, stderr) ->
     cb err
@@ -21,28 +22,65 @@ tradeInInfo = abcAltMaker "alt_f5"
 
 screenshot = (app, location, cb) ->
   exec "cli-tools\\app-print-screen.exe #{app} #{location}", (err, stdout, stderr) ->
+    console.log stdout
     cb err
 
 snap = (loc) ->
  (cb) ->
-   screenshot abcName, "#{outputDir}#{loc}", cb
+   console.log "outputDir is #{outputDir}"
+   screenshot abcName, "#{loc}", cb
 
 pause = (mili) ->
   (cb) -> drews.wait mili, () -> cb null, "paused"
-nimble.series [
-  activateABC
-  borrowerInfo
-  snap "borr.png"
-  coBorrowerInfo
-  snap "co.png"
-  carInfo
-  snap "car.png"
-  tradeInInfo
-  snap "trade.png"
-], (err, all) ->
-  console.log "err is #{err}."
-  console.log all
 
 
+crop = (inFileName, l, t, w, h, outFileName, cb=->) ->
+  command = "convert #{inFileName} -crop #{w}x#{h}+#{l}+#{t} #{outFileName}" 
+  console.log command
+  exec command, (err, stdout, stderr) ->
+    console.log err
+    console.log stderr
+    console.log "cropped?"
+
+
+getAllImages = (cb) ->
+  nimble.series [
+    activateABC
+    borrowerInfo
+    snap "borr.png"
+    coBorrowerInfo
+    snap "co.png"
+    carInfo
+    snap "car.png"
+    tradeInInfo
+    snap "trade.png"
+  ], (err, all) ->
+    console.log "err is #{err}."
+    console.log all
+    cb err, "done"
+
+
+cropImages = (cb=->) ->
+  nimble.each croppings,
+    ([file, [l,t,w,h]], key, cb=->) ->
+      console.log "saving a cropping"
+      console.log "h was #{h}"
+      l = (l - 1) * config.fontWidth + config.offsetLeft
+      t = (t - 1) * config.fontHeight + config.offsetTop
+      w = w * config.fontWidth
+      h = h * config.fontHeight
+      console.log "h is now #{h}"
+
+      crop "#{file}.png", l, t, w, h, "#{key}.png" 
+    (err) ->
+      cb err, "done cropping images"
+      console.log "done!"
+todos = [getAllImages, cropImages]
+todos = [cropImages]
+nimble.series todos, (err, all) ->
+  console.log "all done."
+
+
+  
 
 
