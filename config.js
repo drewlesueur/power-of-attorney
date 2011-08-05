@@ -1,6 +1,13 @@
 module.exports = {
   outputDir: "",
+  //chromePath: "C:\\Documents and Settings\\Drew LeSueur\\Local Settings\\Application Data\\Google\\Chrome\\Application\\chrome.exe",
+  //chromePath: "C:\\\"Documents and Settings\"\\\"Drew LeSueur\"\\\"Local Settings\"\\\"Application Data\"\\Google\\Chrome\\Application\\chrome.exe",
+  //chromePath: "C:/Documents and Settings/Drew LeSueur/Local Settings/Application Data/Google/Chrome/Application/chrome.exe",
+  //chromePath: 'C:/"Documents and Settings"/"Drew LeSueur"/"Local Settings"/"Application Data"/Google/Chrome/Application/chrome.exe',
+  chromePath: "C:\\DOCUME~1\\DREWLE~1\\LOCALS~1\\APPLIC~1\\Google\\Chrome\\APPLIC~1\\chrome.exe",
+
   abcName: "ABC.EXE",
+
   offsetLeft: 9,
   offsetTop: 32,
 

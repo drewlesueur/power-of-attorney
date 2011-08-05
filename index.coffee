@@ -57,6 +57,7 @@ transparentColor = (inFileName, oldColor, outFileName) -> (cb) ->
     console.log err
     console.log stderr
     console.log "transparented"
+    cb err
 
 
 getAllImages = (cb) ->
@@ -100,8 +101,25 @@ cropImages = (cb=->) ->
     (err) ->
       cb err, "done cropping images"
       console.log "done!"
-todos = [getAllImages, cropImages]
-todos = [cropImages]
+
+openChrome = (cb) ->
+  command = "#{config.pathToChrome} poa.html" 
+  console.log config.chromePath
+  console.log "#{config.chromePath}"
+
+  command = config.chromePath
+  ourPath = __dirname.replace /\s/g, "%20"
+  command = "C:\\DOCUME~1\\DREWLE~1\\LOCALS~1\\APPLIC~1\\Google\\Chrome\\APPLIC~1\\chrome.exe file:///#{ourPath}\\poa.html"
+  console.log command
+  exec command, (err, stdin, stderr) ->
+    console.log "opened chrome"
+    console.log stdin
+    console.log err
+    console.log stderr
+    cb err
+
+todos = [getAllImages, cropImages, openChrome]
+todos = [cropImages, openChrome]
 nimble.series todos, (err, all) ->
   console.log "all done."
 
