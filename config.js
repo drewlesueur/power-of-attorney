@@ -9,6 +9,9 @@ module.exports = {
 
   fontWidth: 8,
   fontHeight: 12,
+
+  yellow: '#ffff00', //what should be black
+  blue: '#000080',
   
   croppings: {
     borrowerName: ["borr", [26, 5, 34, 1]],

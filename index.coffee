@@ -25,22 +25,38 @@ screenshot = (app, location, cb) ->
     console.log stdout
     cb err
 
-snap = (loc) ->
- (cb) ->
+snap = (loc) -> (cb) ->
    console.log "outputDir is #{outputDir}"
    screenshot abcName, "#{loc}", cb
 
-pause = (mili) ->
-  (cb) -> drews.wait mili, () -> cb null, "paused"
+pause = (mili) -> (cb) -> drews.wait mili, () -> cb null, "paused"
 
 
-crop = (inFileName, l, t, w, h, outFileName, cb=->) ->
+crop = (inFileName, l, t, w, h, outFileName) -> (cb) ->
   command = "convert #{inFileName} -crop #{w}x#{h}+#{l}+#{t} #{outFileName}" 
   console.log command
   exec command, (err, stdout, stderr) ->
     console.log err
     console.log stderr
     console.log "cropped?"
+    cb err
+
+replaceColor = (inFileName, oldColor, newColor, outFileName) -> (cb) ->
+  command = "convert #{inFileName} -fill #{newColor} -opaque #{oldColor} #{outFileName}" 
+  console.log command
+  exec command, (err, stdout, stderr) ->
+    console.log err
+    console.log stderr
+    console.log "replaced color"
+    cb err
+    
+transparentColor = (inFileName, oldColor, outFileName) -> (cb) ->
+  command = "convert #{inFileName} -transparent #{oldColor}  #{outFileName}" 
+  console.log command
+  exec command, (err, stdout, stderr) ->
+    console.log err
+    console.log stderr
+    console.log "transparented"
 
 
 getAllImages = (cb) ->
@@ -71,7 +87,16 @@ cropImages = (cb=->) ->
       h = h * config.fontHeight
       console.log "h is now #{h}"
 
-      crop "#{file}.png", l, t, w, h, "#{key}.png" 
+      inFileName =  "#{file}.png"
+      outFileName =  "#{key}.png"
+      nimble.series [
+        crop inFileName, l, t, w, h, outFileName
+        #replaceColor outFileName, "yellow", "black", outFileName
+        replaceColor outFileName, config.yellow, "#000000", outFileName
+        transparentColor outFileName, config.blue, outFileName
+      ], (err) ->
+        cb err
+
     (err) ->
       cb err, "done cropping images"
       console.log "done!"
