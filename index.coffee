@@ -64,13 +64,13 @@ getAllImages = (cb) ->
   nimble.series [
     activateABC
     borrowerInfo
-    snap "borr.png"
+    snap config.borrowerImage
     coBorrowerInfo
-    snap "co.png"
+    snap config.coBorrowerImage
     carInfo
-    snap "car.png"
+    snap config.carImage
     tradeInInfo
-    snap "trade.png"
+    snap config.tradeImage
   ], (err, all) ->
     console.log "err is #{err}."
     console.log all
@@ -101,9 +101,38 @@ cropImages = (cb=->) ->
       cb err, "done cropping images"
       console.log "done!"
 
-openChrome = (cb) ->
+createForm = (formInfo, name, cb) -> #not returning a func that returns cb as an expiriment
+  console.log "creating the form #{name}"
+  images = ""
+  for imageName, imageInfo of formInfo.images
+    images += """
+      <img src="#{imageName}.png" />
+    """
+  form = """
+    <!doctype html>
+    <html>
+      <head>
+       </head>
+       #{images}
+       <img src="#{formInfo.background}" />
+    </html>
+  """
+  fs.writeFile "#{name}.html", form, (err) ->
+    console.log "done writing #{name}.html"
+    console.log err
+    cb err, "done writing file"
+
+createForms = (cb) ->
+  console.log "creating forms"
+  nimble.each config.forms, createForm, (err, all) ->
+      console.log err
+      console.log "done creating forms"
+      cb err, "forms done"
+
+
+openChrome = (file) -> (cb) ->
   ourPath = __dirname.replace /\s/g, "%20"
-  command = "#{config.chromePath} file:///#{ourPath}\\poa.html"
+  command = "#{config.chromePath} file:///#{ourPath}\\#{file}"
   console.log command
   exec command, (err, stdin, stderr) ->
     console.log "opened chrome"
@@ -112,8 +141,17 @@ openChrome = (cb) ->
     console.log stderr
     cb err
 
-todos = [getAllImages, cropImages, openChrome]
-#todos = [cropImages, openChrome]
+openChromes = (cb) ->
+  todo = []
+  for formName of config.forms
+    todo.push openChrome "#{formName}.html"
+  nimble.series todo, (err, all) ->
+    console.log "done opening chromes"
+    cb err, "done" 
+
+#compare createForms with openChromes. two different ways of doing it
+todos = [getAllImages, cropImages, createForms]
+todos = [cropImages, createForms, openChromes]
 nimble.series todos, (err, all) ->
   console.log "all done."
 

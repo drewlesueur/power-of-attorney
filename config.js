@@ -5,13 +5,7 @@ tradeImage = "trade.png"
 
 module.exports = {
   outputDir: "",
-  //chromePath: "C:\\Documents and Settings\\Drew LeSueur\\Local Settings\\Application Data\\Google\\Chrome\\Application\\chrome.exe",
-  //chromePath: "C:\\\"Documents and Settings\"\\\"Drew LeSueur\"\\\"Local Settings\"\\\"Application Data\"\\Google\\Chrome\\Application\\chrome.exe",
-  //chromePath: "C:/Documents and Settings/Drew LeSueur/Local Settings/Application Data/Google/Chrome/Application/chrome.exe",
-  //chromePath: 'C:/"Documents and Settings"/"Drew LeSueur"/"Local Settings"/"Application Data"/Google/Chrome/Application/chrome.exe',
   chromePath: "C:\\DOCUME~1\\DREWLE~1\\LOCALS~1\\APPLIC~1\\Google\\Chrome\\APPLIC~1\\chrome.exe",
-
-
   abcName: "ABC.EXE",
 
   offsetLeft: 9,
@@ -36,5 +30,15 @@ module.exports = {
     borrowerCity: [borrowerImage, [26, 8, 12, 1]],
     borrowerState: [borrowerImage, [26, 9, 12, 1]],
   },
+  forms : {
+    powerOfAttorney: {
+      background: "poa.png",
+      images: {
+        borrowerName: [104, 544 /*, width, height*/],
+        borrowerAddress: [91, 599]
+      }
+    }
+  },
+
   blank: true
 }

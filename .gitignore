@@ -4,4 +4,4 @@ node.exe
 *~
 junk
 *.png
-
+!poa.png
