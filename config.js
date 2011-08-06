@@ -34,8 +34,8 @@ module.exports = {
     powerOfAttorney: {
       background: "poa.png",
       images: {
-        borrowerName: [104, 544 /*, width, height*/],
-        borrowerAddress: [91, 599]
+        borrowerName: [63, 322 /*, width, height*/],
+        borrowerAddress: [63, 355]
       }
     }
   },

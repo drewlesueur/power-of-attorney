@@ -105,16 +105,22 @@ createForm = (formInfo, name, cb) -> #not returning a func that returns cb as an
   console.log "creating the form #{name}"
   images = ""
   for imageName, imageInfo of formInfo.images
+    console.log "the image info is"
+    console.log imageInfo
+    [l, t, w, h] = imageInfo
     images += """
-      <img src="#{imageName}.png" />
+      <img src="#{imageName}.png" style="position: absolute; left: #{l}px; top: #{t}px;  "/>
     """
   form = """
     <!doctype html>
     <html>
       <head>
+        <style>
+          * {marging: 0; padding: 0;}
+        </style>
        </head>
        #{images}
-       <img src="#{formInfo.background}" />
+       <img src="#{formInfo.background}" style="width:8.5in;" />
     </html>
   """
   fs.writeFile "#{name}.html", form, (err) ->
@@ -150,8 +156,8 @@ openChromes = (cb) ->
     cb err, "done" 
 
 #compare createForms with openChromes. two different ways of doing it
-todos = [getAllImages, cropImages, createForms]
-todos = [cropImages, createForms, openChromes]
+todos = [getAllImages, cropImages, createForms, openChromes]
+#todos = [cropImages, createForms, openChromes]
 nimble.series todos, (err, all) ->
   console.log "all done."
 
