@@ -40,13 +40,34 @@ module.exports = {
     coBorrowerLicence: [coBorrowerImage, [29, 17, 20, 1]],
     coBorrowerDOB: [coBorrowerImage, [29, 20, 20, 1]],
 
-    vin: [carImage, [24, 15, 20, 1]],
+    vin: [carImage, [25, 15, 20, 1]],
     year: [carImage, [24, 9, 5, 1]],
     make: [carImage, [24, 10, 17, 1]],
     bodyStyle: [carImage, [24, 13, 17, 1]],
+
+    tradeVin: [tradeImage, [22, 13, 20, 1]],
+    tradeYear: [tradeImage, [22, 7, 5, 1]],
+    tradeMake: [tradeImage, [22, 8, 17, 1]],
+    tradeBodyStyle: [tradeImage, [22, 11, 17, 1]],
   },
   forms : {
-    powerOfAttorney: {
+    coPowerOfAttorneyTrade: {
+      background: "poa.png",
+      images: {
+        coBorrowerName: [63, 322 /*, width, height*/],
+        coBorrowerAddress: [63, 355],
+        coBorrowerCity: [481, 355],
+        coBorrowerState: [656, 355],
+        coBorrowerZip: [696, 355],
+        coBorrowerLicence: [482, 322],
+        coBorrowerDOB: [633, 323],
+        tradeVin: [63, 164],
+        tradeYear: [438, 164],
+        tradeMake: [479, 164],
+        tradeBodyStyle: [637, 164],
+      }
+    },
+    powerOfAttorneyTrade: {
       background: "poa.png",
       images: {
         borrowerName: [63, 322 /*, width, height*/],
@@ -56,10 +77,10 @@ module.exports = {
         borrowerZip: [696, 355],
         borrowerLicence: [482, 322],
         borrowerDOB: [633, 323],
-        vin: [63, 164],
-        year: [438, 164],
-        make: [479, 164],
-        bodyStyle: [637, 164],
+        tradeVin: [63, 164],
+        tradeYear: [438, 164],
+        tradeMake: [479, 164],
+        tradeBodyStyle: [637, 164],
       }
     },
     coPowerOfAttorney: {
@@ -72,6 +93,22 @@ module.exports = {
         coBorrowerZip: [696, 355],
         coBorrowerLicence: [482, 322],
         coBorrowerDOB: [633, 323],
+        vin: [63, 164],
+        year: [438, 164],
+        make: [479, 164],
+        bodyStyle: [637, 164],
+      }
+    },
+    powerOfAttorney: {
+      background: "poa.png",
+      images: {
+        borrowerName: [63, 322 /*, width, height*/],
+        borrowerAddress: [63, 355],
+        borrowerCity: [481, 355],
+        borrowerState: [656, 355],
+        borrowerZip: [696, 355],
+        borrowerLicence: [482, 322],
+        borrowerDOB: [633, 323],
         vin: [63, 164],
         year: [438, 164],
         make: [479, 164],
