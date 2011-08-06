@@ -32,6 +32,14 @@ module.exports = {
     borrowerLicence: [borrowerImage, [26, 17, 20, 1]],
     borrowerDOB: [borrowerImage, [26, 20, 20, 1]],
 
+    coBorrowerName: [coBorrowerImage, [29, 5, 34, 1]],
+    coBorrowerAddress: [coBorrowerImage, [29, 6, 34, 1]],
+    coBorrowerZip: [coBorrowerImage, [29, 7, 10, 1]],
+    coBorrowerCity: [coBorrowerImage, [29, 8, 12, 1]],
+    coBorrowerState: [coBorrowerImage, [29, 9, 12, 1]],
+    coBorrowerLicence: [coBorrowerImage, [29, 17, 20, 1]],
+    coBorrowerDOB: [coBorrowerImage, [29, 20, 20, 1]],
+
     vin: [carImage, [24, 15, 20, 1]],
     year: [carImage, [24, 9, 5, 1]],
     make: [carImage, [24, 10, 17, 1]],
@@ -53,7 +61,24 @@ module.exports = {
         make: [479, 164],
         bodyStyle: [637, 164],
       }
-    }
+    },
+    coPowerOfAttorney: {
+      background: "poa.png",
+      images: {
+        coBorrowerName: [63, 322 /*, width, height*/],
+        coBorrowerAddress: [63, 355],
+        coBorrowerCity: [481, 355],
+        coBorrowerState: [656, 355],
+        coBorrowerZip: [696, 355],
+        coBorrowerLicence: [482, 322],
+        coBorrowerDOB: [633, 323],
+        vin: [63, 164],
+        year: [438, 164],
+        make: [479, 164],
+        bodyStyle: [637, 164],
+      }
+    },
+
   },
 
   blank: true
