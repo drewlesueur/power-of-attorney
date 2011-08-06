@@ -1,3 +1,8 @@
+borrowerImage = "borr.png"
+coBorrowerImage = "co.png"
+carImage = "car.png"
+tradeImage = "trade.png"
+
 module.exports = {
   outputDir: "",
   //chromePath: "C:\\Documents and Settings\\Drew LeSueur\\Local Settings\\Application Data\\Google\\Chrome\\Application\\chrome.exe",
@@ -5,6 +10,7 @@ module.exports = {
   //chromePath: "C:/Documents and Settings/Drew LeSueur/Local Settings/Application Data/Google/Chrome/Application/chrome.exe",
   //chromePath: 'C:/"Documents and Settings"/"Drew LeSueur"/"Local Settings"/"Application Data"/Google/Chrome/Application/chrome.exe',
   chromePath: "C:\\DOCUME~1\\DREWLE~1\\LOCALS~1\\APPLIC~1\\Google\\Chrome\\APPLIC~1\\chrome.exe",
+
 
   abcName: "ABC.EXE",
 
@@ -17,16 +23,18 @@ module.exports = {
   fontWidth: 8,
   fontHeight: 12,
 
-  yellow: '#ffff00', //what should be black
-  blue: '#000080',
-  
+  changeToBlack: ['#ffff00', 'rgb(63,63,192)'],
+  changeToTransparent: ['#000080', 'rgb(192,192,64)'],
+  borrowerImage: borrowerImage,
+  coBorrowerImage: coBorrowerImage,
+  carImage: carImage,
+  tradeImage: tradeImage,
   croppings: {
-    borrowerName: ["borr", [26, 5, 34, 1]],
-    //borrowerAddress: ["borr", [26, 6, 34, 1]],
-    //borrowerZip: ["borr", [26, 7, 10, 1]],
-    //borrowerCity: ["borr", [26, 8, 12, 1]],
-    //borrowerState: ["borr", [26, 9, 12, 1]],
-    //test: ["borr",[10,2, 20, 20]]
+    borrowerName: [borrowerImage, [26, 5, 34, 1]],
+    borrowerAddress: [borrowerImage, [26, 6, 34, 1]],
+    borrowerZip: [borrowerImage, [26, 7, 10, 1]],
+    borrowerCity: [borrowerImage, [26, 8, 12, 1]],
+    borrowerState: [borrowerImage, [26, 9, 12, 1]],
   },
   blank: true
 }

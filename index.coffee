@@ -80,22 +80,21 @@ getAllImages = (cb) ->
 cropImages = (cb=->) ->
   nimble.each croppings,
     ([file, [l,t,w,h]], key, cb=->) ->
-      console.log "saving a cropping"
-      console.log "h was #{h}"
       l = (l - 1) * config.fontWidth + config.offsetLeft
       t = (t - 1) * config.fontHeight + config.offsetTop
       w = w * config.fontWidth
       h = h * config.fontHeight
-      console.log "h is now #{h}"
 
-      inFileName =  "#{file}.png"
+      inFileName =  file
       outFileName =  "#{key}.png"
-      nimble.series [
+      imageMagickCommands = [
         crop inFileName, l, t, w, h, outFileName
-        #replaceColor outFileName, "yellow", "black", outFileName
-        replaceColor outFileName, config.yellow, "#000000", outFileName
-        transparentColor outFileName, config.blue, outFileName
-      ], (err) ->
+      ]
+      for color in config.changeToBlack
+        imageMagickCommands.push replaceColor outFileName, color, "#000000", outFileName
+      for color in config.changeToTransparent
+        imageMagickCommands.push transparentColor outFileName, color, outFileName
+      nimble.series imageMagickCommands, (err) ->
         cb err
 
     (err) ->
@@ -103,13 +102,8 @@ cropImages = (cb=->) ->
       console.log "done!"
 
 openChrome = (cb) ->
-  command = "#{config.pathToChrome} poa.html" 
-  console.log config.chromePath
-  console.log "#{config.chromePath}"
-
-  command = config.chromePath
   ourPath = __dirname.replace /\s/g, "%20"
-  command = "C:\\DOCUME~1\\DREWLE~1\\LOCALS~1\\APPLIC~1\\Google\\Chrome\\APPLIC~1\\chrome.exe file:///#{ourPath}\\poa.html"
+  command = "#{config.chromePath} file:///#{ourPath}\\poa.html"
   console.log command
   exec command, (err, stdin, stderr) ->
     console.log "opened chrome"
@@ -119,7 +113,7 @@ openChrome = (cb) ->
     cb err
 
 todos = [getAllImages, cropImages, openChrome]
-todos = [cropImages, openChrome]
+#todos = [cropImages, openChrome]
 nimble.series todos, (err, all) ->
   console.log "all done."
 
