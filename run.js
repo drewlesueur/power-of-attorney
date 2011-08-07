@@ -15,4 +15,3 @@ fs.readFile("index.coffee", function(err, data){
 
 
 
-setTimeout(function(){console.log("done")}, 10000000000000)

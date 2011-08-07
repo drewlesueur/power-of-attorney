@@ -119,14 +119,52 @@ createForm = (formInfo, name, cb) -> #not returning a func that returns cb as an
           * {marging: 0; padding: 0;}
         </style>
        </head>
-       #{images}
-       <img src="#{formInfo.background}" style="width:8.5in;" />
+       <body>
+         #{images}
+         <img src="#{formInfo.background}" style="width:8.5in;" />
+       </body>
     </html>
   """
   fs.writeFile "#{name}.html", form, (err) ->
     console.log "done writing #{name}.html"
     console.log err
     cb err, "done writing file"
+
+createNavPage = (cb) ->
+  ourPath = __dirname.replace /\s/g, "%20"
+  links = ""
+  js = ""
+  for formName of config.forms
+    link = "file:///#{ourPath}\\#{formName}.html"
+    links += """
+      <a href ="#{link}" targe="_blank">#{formName}</a>
+      <br />
+    """
+    js += """
+      window.open("#{link.replace /\\/g, '\\\\'}", "#{link}");
+
+    """
+    
+  html = """
+    <!doctype html>
+    <html>
+      <head>
+        <style>
+          * {marging: 0; padding: 0;}
+        </style>
+        <script>
+          function loaded() {
+            #{js}
+          }
+        </script>
+       </head>
+       <body onload="loaded()">
+         #{links}
+       </body>
+    </html>
+  """
+  fs.writeFile "nav.html", html, (err) ->
+    cb err
 
 createForms = (cb) ->
   console.log "creating forms"
@@ -141,23 +179,12 @@ openChrome = (file) -> (cb) ->
   command = "#{config.chromePath} file:///#{ourPath}\\#{file}"
   console.log command
   exec command, (err, stdin, stderr) ->
-    console.log "opened chrome"
-    console.log stdin
-    console.log err
-    console.log stderr
+    console.log "opened chrome for #{file}"
+    if err
+      console.log "there was an error opening chrome for #{file}"
     cb err
 
-openChromes = (cb) ->
-  todo = []
-  for formName of config.forms
-    todo.push openChrome "#{formName}.html"
-  nimble.series todo, (err, all) ->
-    console.log "done opening chromes"
-    cb err, "done" 
-
-#compare createForms with openChromes. two different ways of doing it
-todos = [getAllImages, cropImages, createForms, openChromes]
-#todos = [cropImages, createForms, openChromes]
+todos = [getAllImages, cropImages, createForms, createNavPage, openChrome("nav.html")]
 nimble.series todos, (err, all) ->
   console.log "all done."
 

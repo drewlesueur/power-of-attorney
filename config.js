@@ -51,23 +51,7 @@ module.exports = {
     tradeBodyStyle: [tradeImage, [22, 11, 17, 1]],
   },
   forms : {
-    coPowerOfAttorneyTrade: {
-      background: "poa.png",
-      images: {
-        coBorrowerName: [63, 322 /*, width, height*/],
-        coBorrowerAddress: [63, 355],
-        coBorrowerCity: [481, 355],
-        coBorrowerState: [656, 355],
-        coBorrowerZip: [696, 355],
-        coBorrowerLicence: [482, 322],
-        coBorrowerDOB: [633, 323],
-        tradeVin: [63, 164],
-        tradeYear: [438, 164],
-        tradeMake: [479, 164],
-        tradeBodyStyle: [637, 164],
-      }
-    },
-    powerOfAttorneyTrade: {
+    powerOfAttorney: {
       background: "poa.png",
       images: {
         borrowerName: [63, 322 /*, width, height*/],
@@ -77,10 +61,10 @@ module.exports = {
         borrowerZip: [696, 355],
         borrowerLicence: [482, 322],
         borrowerDOB: [633, 323],
-        tradeVin: [63, 164],
-        tradeYear: [438, 164],
-        tradeMake: [479, 164],
-        tradeBodyStyle: [637, 164],
+        vin: [63, 164],
+        year: [438, 164],
+        make: [479, 164],
+        bodyStyle: [637, 164],
       }
     },
     coPowerOfAttorney: {
@@ -99,7 +83,7 @@ module.exports = {
         bodyStyle: [637, 164],
       }
     },
-    powerOfAttorney: {
+    powerOfAttorneyTrade: {
       background: "poa.png",
       images: {
         borrowerName: [63, 322 /*, width, height*/],
@@ -109,10 +93,26 @@ module.exports = {
         borrowerZip: [696, 355],
         borrowerLicence: [482, 322],
         borrowerDOB: [633, 323],
-        vin: [63, 164],
-        year: [438, 164],
-        make: [479, 164],
-        bodyStyle: [637, 164],
+        tradeVin: [63, 164],
+        tradeYear: [438, 164],
+        tradeMake: [479, 164],
+        tradeBodyStyle: [637, 164],
+      }
+    },
+    coPowerOfAttorneyTrade: {
+      background: "poa.png",
+      images: {
+        coBorrowerName: [63, 322 /*, width, height*/],
+        coBorrowerAddress: [63, 355],
+        coBorrowerCity: [481, 355],
+        coBorrowerState: [656, 355],
+        coBorrowerZip: [696, 355],
+        coBorrowerLicence: [482, 322],
+        coBorrowerDOB: [633, 323],
+        tradeVin: [63, 164],
+        tradeYear: [438, 164],
+        tradeMake: [479, 164],
+        tradeBodyStyle: [637, 164],
       }
     },
 
